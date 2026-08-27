@@ -10,12 +10,12 @@ test('User can login successfully', async ({ page }) => {
   await loginPage.login(user.username, user.password);
 
   const loggedInUser = await loginPage.loggedInUser.textContent();
-  await expect( page.getByText(loggedInUser)).toBeVisible();
+  await expect(page.getByText(loggedInUser)).toBeVisible();
 
   console.log(`User ${loggedInUser} logged in successfully`);
 });
 
-test('User can logout successfully',async({page}) => {
+test('User can logout successfully', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const user = getValidUser();
 
@@ -23,16 +23,21 @@ test('User can logout successfully',async({page}) => {
   await loginPage.login(user.username, user.password);
 
   const loggedInUser = await loginPage.loggedInUser.textContent();
-  await expect(page.getByText(loggedInUser)).toBeVisible();  
-
-  // Perform logout
+  await expect(page.getByText(loggedInUser)).toBeVisible();
 
   await loginPage.loggedInUser.click();
-
   await expect(loginPage.logoutDropdown).toBeVisible();
-
   await loginPage.logout();
 
   console.log(`User ${loggedInUser} logged out successfully`);
+});
 
+test('Invalid user login', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const user = { username: 'invalidUser', password: 'invalidPass' };
+
+  await loginPage.goto();
+  await loginPage.login(user.username, user.password);
+
+  await expect(page.getByText('Invalid credentials')).toBeVisible();
 });
