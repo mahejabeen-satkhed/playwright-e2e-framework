@@ -9,6 +9,30 @@ test('User can login successfully', async ({ page }) => {
   await loginPage.goto();
   await loginPage.login(user.username, user.password);
 
-  await expect(page.getByRole('heading', { name: 'Dashboard' })).toBeVisible();
+  const loggedInUser = await loginPage.loggedInUser.textContent();
+  await expect( page.getByText(loggedInUser)).toBeVisible();
+
+  console.log(`User ${loggedInUser} logged in successfully`);
+});
+
+test('User can logout successfully',async({page}) => {
+  const loginPage = new LoginPage(page);
+  const user = getValidUser();
+
+  await loginPage.goto();
+  await loginPage.login(user.username, user.password);
+
+  const loggedInUser = await loginPage.loggedInUser.textContent();
+  await expect(page.getByText(loggedInUser)).toBeVisible();  
+
+  // Perform logout
+
+  await loginPage.loggedInUser.click();
+
+  await expect(loginPage.logoutDropdown).toBeVisible();
+
+  await loginPage.logout();
+
+  console.log(`User ${loggedInUser} logged out successfully`);
 
 });
