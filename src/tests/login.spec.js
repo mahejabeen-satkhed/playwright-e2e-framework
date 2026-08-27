@@ -32,7 +32,7 @@ test('User can logout successfully', async ({ page }) => {
 
   console.log(`User ${loggedInUser} logged out successfully`);
 
-  await expect(loginPage).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  await expect(page).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
 });
 
 //Logout using different method
