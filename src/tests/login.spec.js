@@ -15,6 +15,7 @@ test('User can login successfully', async ({ page }) => {
   console.log(`User ${loggedInUser} logged in successfully`);
 });
 
+//TC-ID : LOGIN-07
 test('User can logout successfully', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const user = getValidUser();
@@ -30,6 +31,8 @@ test('User can logout successfully', async ({ page }) => {
   await loginPage.logout();
 
   console.log(`User ${loggedInUser} logged out successfully`);
+
+  await expect(loginPage).toHaveURL('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
 });
 
 //Logout using different method
@@ -69,5 +72,23 @@ test('Verify Login page loads', async({page}) =>{
   await expect(loginPage.usernameInput).toBeVisible();
   await expect(loginPage.passwordInput).toBeVisible();
   await expect(loginPage.loginButton).toBeVisible();
+
+})
+
+//TC-ID : LOGIN-06
+test('Verify password masking',async({page})=>{
+
+  const loginPage = new LoginPage(page);
+
+  await loginPage.goto();
+
+  await expect(loginPage.passwordInput).toHaveAttribute('type','password');
+
+})
+
+//TC-ID : LOGIN-07
+test('Verify logout',async({page})=> {
+
+
 
 })
