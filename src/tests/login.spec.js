@@ -58,3 +58,16 @@ test('Invalid user login', async ({ page }) => {
 
   await expect(page.getByText('Invalid credentials')).toBeVisible();
 });
+
+// TC-ID : LOGIN-01
+test('Verify Login page loads', async({page}) =>{
+
+  const loginPage = new LoginPage(page);
+  
+  await loginPage.goto();
+
+  await expect(loginPage.usernameInput).toBeVisible();
+  await expect(loginPage.passwordInput).toBeVisible();
+  await expect(loginPage.loginButton).toBeVisible();
+
+})
