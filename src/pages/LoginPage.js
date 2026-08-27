@@ -6,6 +6,8 @@ class LoginPage {
     this.loginButton = page.getByRole('button', { type: 'submit' });
     this.loggedInUser = page.locator('//p[@class="oxd-userdropdown-name"]');
     this.logoutDropdown = page.locator('//ul[@role="menu"]');
+    this.logoutMenuItem=page.locator('//a[text()="Logout"]');
+    this.logoutDdMenus = page.locator('//ul/li/a[@role="menuitem"]');
   }
 
   async goto() {
@@ -19,7 +21,28 @@ class LoginPage {
   }
 
   async logout() {
-    await this.logoutDropdown.locator('li a').getByRole('link', { name: 'Logout' }).click();
+    await this.logoutMenuItem.click();
+  }
+
+  async logout_different_feature(){
+
+  /*const options= await this.logoutDdMenus.allTextContents();
+
+   console.log(options);*/
+
+    const handles = await this.logoutDdMenus.elementHandles();
+    
+    for(let handle of handles)
+    {
+      const value = await handle.textContent();
+      //console.log(value);
+      if(value.includes('Logout'))
+      {
+        await handle.click();
+        console.log(`${value} clicked successfully`);
+      }
+       
+    }
   }
 }
 

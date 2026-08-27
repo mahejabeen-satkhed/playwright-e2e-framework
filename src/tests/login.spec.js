@@ -32,6 +32,23 @@ test('User can logout successfully', async ({ page }) => {
   console.log(`User ${loggedInUser} logged out successfully`);
 });
 
+//Logout using different method
+test('User logout using different features',async({page}) => {
+
+  const loginPage = new LoginPage(page)
+  const user=getValidUser();
+
+  await loginPage.goto();
+  await loginPage.login(user.username,user.password)
+
+  await loginPage.loggedInUser.click();
+  await expect(loginPage.logoutDropdown).toBeVisible();
+
+  await loginPage.logout_different_feature();
+
+
+})
+
 test('Invalid user login', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const user = { username: 'invalidUser', password: 'invalidPass' };
