@@ -86,9 +86,34 @@ test('Verify password masking',async({page})=>{
 
 })
 
-//TC-ID : LOGIN-07
-test('Verify logout',async({page})=> {
+//TC-ID : LOGIN-04
+test('Verify empty username',async({page})=> {
 
+  const loginPage= new LoginPage(page);
+  const user = getValidUser();
 
+  await loginPage.goto();
+
+  await loginPage.login('', user.password);
+
+  await expect(loginPage.errorMsg).toBeVisible();
+
+  console.log('Error message displayed for empty username');
+
+})
+
+//TC-ID : LOGIN-05
+test('Verify empty password',async({page})=> {
+
+  const loginPage= new LoginPage(page);
+  const user = getValidUser();
+
+  await loginPage.goto();
+
+  await loginPage.login(user.username, '');
+
+  await expect(loginPage.errorMsg).toBeVisible();
+
+  console.log('Error message displayed for empty password');
 
 })
