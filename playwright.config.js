@@ -3,6 +3,7 @@ const env = require('./src/config/env.qa.json');
 
 module.exports = defineConfig({
   testDir: './src/tests',
+  testMatch: '**/*.@(spec|test).js',
   timeout: 30000,
   retries: 1,
   use: {

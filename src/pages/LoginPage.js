@@ -8,6 +8,7 @@ class LoginPage {
     this.logoutDropdown = page.locator('//ul[@role="menu"]');
     this.logoutMenuItem=page.locator('//a[text()="Logout"]');
     this.logoutDdMenus = page.locator('//ul/li/a[@role="menuitem"]');
+    this.errorMsg = page.getByText('Required')
   }
 
   async goto() {
@@ -44,6 +45,7 @@ class LoginPage {
        
     }
   }
+
 }
 
 module.exports = { LoginPage };
