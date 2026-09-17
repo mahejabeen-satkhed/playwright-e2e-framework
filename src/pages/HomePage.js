@@ -2,7 +2,7 @@ class HomePage {
   constructor(page) {
     this.page = page;
     this.welcomeMessage = page.locator('//h6[normalize-space()="Dashboard"]');
-    this.adminMenu = page.getByText('Admin');
+    this.adminMenu = page.locator("//a[contains(@href,'viewAdminModule')]");
     this.PIMMenu = page.getByText('PIM');
 
   }
@@ -13,7 +13,7 @@ class HomePage {
 
   async clickNavigationLink(linkText){
 
-    await this.page.getByText(linkText).click();
+    await this.adminMenu.click();
     
   }
 
